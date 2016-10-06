@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 		"launch_program.c",
 		NULL
 	};
-	if (launch_program(".", "/bin/vi", params)) {
+	if (launch_program(".", "/usr/bin/vi", params)) {
 		perror("launch_program");
 		return EXIT_FAILURE;
 	}
