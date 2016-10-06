@@ -29,6 +29,7 @@
 *.hex
 
 **/launcher
+**/test_launcher
 
 # Debug files
 *.dSYM/
