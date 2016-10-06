@@ -1,5 +1,7 @@
 .PHONY: all test clean
 
+CFLAGS = -g
+
 all: test life
 
 clean:
@@ -10,5 +12,5 @@ clean:
 test:
 	$(MAKE) -C test full
 
-life: unit.o main.o
-	$(CC) -o $@ $^
+launcher: launch_program.o main.o
+	$(CC) $(CFLAGS) -o $@ $^

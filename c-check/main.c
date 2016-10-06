@@ -1,12 +1,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "unit.h"
+#include "launch_program.h"
 
 int main(int argc, char **argv)
 {
-	printf("The answer to life, the universe, and everything is %d\n",
-			answer());
+	char * const params[] = {
+		"vi",
+		"launch_program.c",
+		NULL
+	};
+	if (launch_program(".", "/bin/vi", params)) {
+		perror("launch_program");
+		return EXIT_FAILURE;
+	}
 
 	return EXIT_SUCCESS;
 }
