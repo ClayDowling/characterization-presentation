@@ -1,13 +1,16 @@
-include_directories(SYSTEM
-	${CMAKE_SOURCE_DIR}/googletest/googlemock/include)
+include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/googletest/googlemock/include)
 
 enable_testing()
 
 SET(TEST_SRC
-	testUnit.cpp)
+	testExecutor.cpp
+	MockSystem.h)
 
 SET(UNIT_UNDER_TEST_SRC
-	../unit.cpp)
+	../Executor.cpp
+	../Executor.h
+	../System.cpp
+	../System.h)
 
 SET(TEST_NAME ${PROJECT_NAME}-test)
 ADD_EXECUTABLE(${TEST_NAME}
