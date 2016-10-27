@@ -1,4 +1,4 @@
-#include "../launch_program.h"
+#include "../motor.h"
 
 #include <check.h>
 
@@ -9,23 +9,23 @@ START_TEST(stub_test)
 }
 END_TEST
 
-TCase *tcase_life(void)
+TCase *tcase_motor(void)
 {
 	TCase *tc;
 
-	tc = tcase_create("life");
+	tc = tcase_create("motor");
 	tcase_add_test(tc, stub_test);
 
 	return tc;
 }
 
-Suite *suite_life(void)
+Suite *suite_motor(void)
 {
 	Suite *s;
 
-	s = suite_create("the-guide");
+	s = suite_create("motor-suite");
 
-	suite_add_tcase(s, tcase_life());
+	suite_add_tcase(s, tcase_motor());
 
 	return s;
 }
@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 	SRunner *runner;
 	int number_fails;
 
-	s = suite_life();
+	s = suite_motor();
 	runner = srunner_create(s);
 	srunner_run_all(runner, CK_NORMAL);
 	number_fails = srunner_ntests_failed(runner);

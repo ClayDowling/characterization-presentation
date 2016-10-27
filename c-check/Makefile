@@ -12,5 +12,5 @@ clean:
 test:
 	$(MAKE) -C test full
 
-launcher: launch_program.o main.o
+launcher: main.o
 	$(CC) $(CFLAGS) -o $@ $^
