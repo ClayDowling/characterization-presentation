@@ -14,7 +14,7 @@ void clock_gettime_will_return(int size, struct timespec** returns)
 int clock_gettime(clockid_t clk_id, struct timespec *tp)
 {
     if (clock_gettime_idx < clock_gettime_return_size) {
-        struct timespec *thistime = clock_gettime_returns[clock_gettime_idx++];
+        struct timespec *thistime = &clock_gettime_returns[clock_gettime_idx++];
         tp->tv_sec = thistime->tv_sec;
         tp->tv_nsec = thistime->tv_nsec;
         return 0;

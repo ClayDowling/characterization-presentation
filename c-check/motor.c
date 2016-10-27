@@ -22,6 +22,8 @@ void
 initialize()
 {
 	if (!initialized) {
+        lastpulse.tv_sec = 0;
+        lastpulse.tv_nsec = 0;
 		HANDLE = gpio_open(0);
 		if (HANDLE == GPIO_INVALID_HANDLE) {
 			err(EXIT_FAILURE, "gpio_open failed");
@@ -93,7 +95,7 @@ motor_canstep()
 	struct timespec diff;
 	clock_gettime(CLOCK_MONOTONIC, &now);
 
-	timespec_subtract(&diff, &lastpulse, &now);
+    timespec_subtract(&diff, &now, &lastpulse);
 
 	if (diff.tv_sec > 0 || diff.tv_nsec > PULSE_MIN_INTERVAL) {
 		return 1;

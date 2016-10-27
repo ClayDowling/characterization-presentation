@@ -1,4 +1,4 @@
-CFLAGS = `pkg-config --cflags check`
+CFLAGS = `pkg-config --cflags check` -g
 LIBS = `pkg-config --libs check`
 VPATH=..
 
