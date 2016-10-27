@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "mock_gpio.h"
 
 int gpio_open_called_value = UNSET;
@@ -13,7 +14,7 @@ int gpio_open_called_with()
 }
 
 int gpio_pin_input_value = UNSET;
-int gpio_pin_input(gpio_handle_t, int value)
+int gpio_pin_input(gpio_handle_t hdl, int value)
 {
   gpio_pin_input_value = value;
   return 0;
@@ -24,7 +25,7 @@ int gpio_pin_input_called_with()
 }
 
 int gpio_pin_pulldown_value = UNSET;
-int gpio_pin_pulldown(gpio_handle_t, int value)
+int gpio_pin_pulldown(gpio_handle_t hdl, int value)
 {
   gpio_pin_pulldown_value = value;
   return 0;
@@ -35,7 +36,7 @@ int gpio_pin_pulldown_called_with()
 }
 
 int gpio_pio_output_value = UNSET;
-int gpio_pio_output(gpio_handle_t, int value)
+int gpio_pin_output(gpio_handle_t hdl, int value)
 {
   gpio_pio_output_value = value;
   return 0;
@@ -45,16 +46,23 @@ int gpio_pin_output_called_with()
   return gpio_pio_output_value;
 };
 
-gpio_value_t gpio_pin_get_return = UNSET;
+int gpio_pin_get_idx = 0;
+int gpio_pin_get_size = 0;
+gpio_value_t *gpio_pin_get_return = NULL;
 int gpio_pin_get_value = UNSET;
-gpio_value_t gpio_pin_get(gpio_handle_t, int value)
+gpio_value_t gpio_pin_get(gpio_handle_t hdl, int value)
 {
   gpio_pin_get_value = value;
-  return gpio_pin_get_return;
+  if (gpio_pin_get_idx < gpio_pin_get_size) {
+    return gpio_pin_get_return[gpio_pin_get_idx++];
+  }
+  return UNSET;
 }
-void gpio_pin_get_will_return(int, gpio_value_t ret)
+void gpio_pin_get_will_return(int size, gpio_value_t *ret)
 {
-  gpio_pin_get_return = ret;
+    gpio_pin_get_idx = 0;
+    gpio_pin_get_size = size;
+    gpio_pin_get_return = ret;
 }
 int gpio_pin_get_called_with()
 {
@@ -64,7 +72,7 @@ int gpio_pin_get_called_with()
 #define MOCK_SIZE 10
 struct pinvalue gpio_pin_set_value[MOCK_SIZE];
 int gpio_pin_set_idx = 0;
-int gpio_pin_set(gpio_handle_t, int pin, gpio_value_t value)
+int gpio_pin_set(gpio_handle_t hdl, int pin, gpio_value_t value)
 {
   struct pinvalue *cur;
 

@@ -1,5 +1,4 @@
-
-
+#include "mock_time.h"
 
 int clock_gettime_return_size = 0;
 int clock_gettime_idx = 0;

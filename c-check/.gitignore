@@ -2,3 +2,6 @@
 *.includes
 *.config
 *.creator
+
+**/test_motor
+**/*.user

@@ -1,10 +1,9 @@
 #include <stdint.h>
-#include <err.h>
-#include <libgpio.h>
 #include <stdlib.h>
+#include <err.h>
 #include <time.h>
+#include "libgpio.h"
 #include "motor.h"
-#include "setup.h"
 
 int		initialized = 0;
 
