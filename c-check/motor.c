@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <err.h>
 #include <time.h>
@@ -98,6 +99,7 @@ motor_canstep()
     timespec_subtract(&diff, &now, &lastpulse);
 
 	if (diff.tv_sec > 0 || diff.tv_nsec > PULSE_MIN_INTERVAL) {
+        printf("difference: tv_sec: %ld tv_nsec: %ld\n", diff.tv_sec, diff.tv_nsec);
 		return 1;
 	}
 

@@ -44,4 +44,6 @@ struct pinvalue {
 struct pinvalue gpio_pin_set_called_with(int idx);
 int gpio_pin_set_call_count();
 
+void gpio_reset_mocks();
+
 #endif

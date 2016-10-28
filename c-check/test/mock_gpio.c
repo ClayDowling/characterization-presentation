@@ -2,6 +2,43 @@
 #include "mock_gpio.h"
 
 int gpio_open_called_value = UNSET;
+int gpio_pin_input_value = UNSET;
+int gpio_pin_pulldown_value = UNSET;
+int gpio_pio_output_value = UNSET;
+
+int gpio_pin_get_idx = 0;
+int gpio_pin_get_size = 0;
+gpio_value_t *gpio_pin_get_return = NULL;
+int gpio_pin_get_value = UNSET;
+
+
+#define MOCK_SIZE 10
+struct pinvalue gpio_pin_set_value[MOCK_SIZE];
+int gpio_pin_set_idx = 0;
+
+
+void gpio_reset_mocks()
+{
+    int i;
+
+    gpio_open_called_value = UNSET;
+    gpio_pin_input_value = UNSET;
+    gpio_pin_pulldown_value = UNSET;
+    gpio_pio_output_value = UNSET;
+
+    gpio_pin_get_idx = 0;
+    gpio_pin_get_size = 0;
+    gpio_pin_get_return = NULL;
+    gpio_pin_get_value = UNSET;
+
+    for(i=0; i < MOCK_SIZE; ++i) {
+        struct pinvalue gpio_pin_set_value[MOCK_SIZE];
+    }
+
+    gpio_pin_set_idx = 0;
+
+}
+
 gpio_handle_t gpio_open(int value)
 {
   gpio_open_called_value = value;
@@ -13,7 +50,6 @@ int gpio_open_called_with()
   return gpio_open_called_value;
 }
 
-int gpio_pin_input_value = UNSET;
 int gpio_pin_input(gpio_handle_t hdl, int value)
 {
   gpio_pin_input_value = value;
@@ -24,7 +60,6 @@ int gpio_pin_input_called_with()
   return gpio_pin_input_value;
 }
 
-int gpio_pin_pulldown_value = UNSET;
 int gpio_pin_pulldown(gpio_handle_t hdl, int value)
 {
   gpio_pin_pulldown_value = value;
@@ -35,7 +70,6 @@ int gpio_pin_pulldown_called_with()
   return gpio_pin_pulldown_value;
 }
 
-int gpio_pio_output_value = UNSET;
 int gpio_pin_output(gpio_handle_t hdl, int value)
 {
   gpio_pio_output_value = value;
@@ -46,10 +80,6 @@ int gpio_pin_output_called_with()
   return gpio_pio_output_value;
 };
 
-int gpio_pin_get_idx = 0;
-int gpio_pin_get_size = 0;
-gpio_value_t *gpio_pin_get_return = NULL;
-int gpio_pin_get_value = UNSET;
 gpio_value_t gpio_pin_get(gpio_handle_t hdl, int value)
 {
   gpio_pin_get_value = value;
@@ -69,9 +99,6 @@ int gpio_pin_get_called_with()
   return gpio_pin_get_value;
 }
 
-#define MOCK_SIZE 10
-struct pinvalue gpio_pin_set_value[MOCK_SIZE];
-int gpio_pin_set_idx = 0;
 int gpio_pin_set(gpio_handle_t hdl, int pin, gpio_value_t value)
 {
   struct pinvalue *cur;
